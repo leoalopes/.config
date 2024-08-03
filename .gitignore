@@ -1,0 +1,16 @@
+*
+!.gitignore
+
+!fish
+!fish/*
+!fish/**/*
+fish/conf.d/brazil.fish
+
+!starship.toml
+
+!nvim
+!nvim/*
+!nvim/**/*
+
+!tmux
+!tmux/tmux.conf
