@@ -14,3 +14,6 @@ fish/conf.d/brazil.fish
 
 !tmux
 !tmux/tmux.conf
+
+!kitty
+!kitty/*
