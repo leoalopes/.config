@@ -1,6 +1,6 @@
 -- Set <space> as the leader key
 vim.g.mapleader = " "
-vim.g.maplocalleader = ' '
+vim.g.maplocalleader = " "
 
 vim.g.have_nerd_font = true
 
@@ -9,13 +9,16 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Enable mouse mode
-vim.opt.mouse = 'a'
+vim.opt.mouse = "a"
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
 -- Enable break indent
 vim.opt.breakindent = true
+
+-- Disable wrapping in long lines
+vim.opt.wrap = false
 
 -- Hides command line if not being used
 -- vim.opt.cmdheight = 0
@@ -28,7 +31,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Keep signcolumn on by default
-vim.opt.signcolumn = 'yes'
+vim.opt.signcolumn = "yes"
 
 -- Decrease update time
 vim.opt.updatetime = 250
@@ -43,10 +46,10 @@ vim.opt.splitbelow = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 vim.opt.list = true
-vim.opt.listchars = { tab = '  ', trail = '·', nbsp = ' ' }
+vim.opt.listchars = { tab = "  ", trail = "·", nbsp = " " }
 
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
+vim.opt.inccommand = "split"
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
@@ -61,17 +64,15 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
 -- Sync clipboard between OS and Neovim
-vim.schedule(
-    function()
-        vim.opt.clipboard = 'unnamedplus'
-    end
-)
+vim.schedule(function()
+	vim.opt.clipboard = "unnamedplus"
+end)
 
 -- Highlight when yanking (copying) text
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking text',
-  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking text",
+	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
