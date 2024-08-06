@@ -4,7 +4,8 @@
 !fish
 !fish/*
 !fish/**/*
-fish/conf.d/brazil.fish
+fish/conf.d/*
+!fish/conf.d/omf.fish
 
 !starship.toml
 

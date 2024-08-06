@@ -1,7 +1,6 @@
 if status is-interactive
     set -gx AUTO_TITLE_SCREENS NO
 
-    #set -gx NVM_DIR (brew --prefix nvm)
 
     alias t="/home/linuxbrew/.linuxbrew/bin/tmux"
     alias ta="t attach"
@@ -15,9 +14,7 @@ if status is-interactive
     fish_add_path /opt/nvim/bin
     fish_add_path /home/linuxbrew/.linuxbrew/bin
 
-    #~/.local/bin/mise activate fish | source
     starship init fish | source
-    #fzf --fish | source
+    fzf --fish | source
 end
 
-#t new-session -A -s main
