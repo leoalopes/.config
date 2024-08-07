@@ -1,7 +1,6 @@
 if status is-interactive
     set -gx AUTO_TITLE_SCREENS NO
 
-
     alias t="/home/linuxbrew/.linuxbrew/bin/tmux"
     alias ta="t attach"
     alias td="t detach"

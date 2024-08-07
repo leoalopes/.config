@@ -13,6 +13,8 @@ return {
                 { '<leader>c', group = 'Code' },
                 { '<leader>f', group = 'Find' },
                 { '<leader>b', group = 'Buffer' },
+                { '<leader>h', group = 'Harpoon' },
+                { '<leader>g', group = 'Git' },
             }
         end,
     },

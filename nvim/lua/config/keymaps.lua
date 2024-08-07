@@ -57,6 +57,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- Execute a code action, usually your cursor needs to be on top of an error
         map("<leader>ca", vim.lsp.buf.code_action, "Code actions")
 
+        -- Open line diagnostics in a floating window
+        map("<leader>cd", vim.diagnostic.open_float, "Line diagnostics")
+
         -- The following two autocommands are used to highlight references of the
         -- word under your cursor when your cursor rests there for a little while.
         -- When you move your cursor, the highlights will be cleared (the second autocommand).
