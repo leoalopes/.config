@@ -16,10 +16,16 @@ return {
                     mappings = {
                         ['l'] = 'open'
                     },
-                }
+                },
+                filesystem = {
+                    follow_current_file = {
+                        enabled = true,
+                    },
+                },
             })
 
-            vim.keymap.set('n', '<leader>e', ':Neotree filesystem reveal left toggle=true<CR>', { desc = 'Toggle filesystem' })
+            vim.keymap.set('n', '<leader>e', ':Neotree filesystem reveal left toggle=true<CR>',
+                { desc = 'Toggle filesystem' })
         end
     },
 }
