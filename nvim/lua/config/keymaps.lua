@@ -7,6 +7,21 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
+-- Navigate between buffers
+vim.keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<leader>bN", ":bprev<CR>", { desc = "Previous buffer" })
+
+-- Save buffers
+vim.keymap.set("n", "<leader>bs", ":w<CR>", { desc = "Save" })
+vim.keymap.set("n", "<leader>bS", ":wa<CR>", { desc = "Save all" })
+
+-- Better split bindings
+vim.keymap.set({ "n", "v" }, "<leader>[", ":vsplit<CR>", { desc = "Split vertically" })
+vim.keymap.set({ "n", "v" }, "<leader>-", ":split<CR>", { desc = "Split horizontally" })
+
+-- Paste last yank
+vim.keymap.set({ "n", "v" }, "<leader>p", '"0p', { desc = "Paste" })
+
 -- Diagnostics
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics" })
 
@@ -20,6 +35,9 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
+
+-- Make file executable
+vim.keymap.set("n", "<leader>bx", "<cmd>!chmod +x %<CR>", { desc = "Make executable", silent = true })
 
 -- LSP keymaps
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -53,6 +71,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         -- Rename the variable under your cursor.
         map("<leader>cr", vim.lsp.buf.rename, "Rename")
+
+        -- Replace word under your cursor
+        map("<leader>cR", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Replace")
 
         -- Execute a code action, usually your cursor needs to be on top of an error
         map("<leader>ca", vim.lsp.buf.code_action, "Code actions")
