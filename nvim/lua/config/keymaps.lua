@@ -36,84 +36,87 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
+-- Replace word under cursor
+vim.keymap.set("n", "<leader>*", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace word" })
+
 -- Make file executable
 vim.keymap.set("n", "<leader>bx", "<cmd>!chmod +x %<CR>", { desc = "Make executable", silent = true })
 
 -- LSP keymaps
 vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("custom-lsp-attach", { clear = true }),
-    callback = function(event)
-        local map = function(keys, func, desc)
-            vim.keymap.set("n", keys, func, { buffer = event.buf, desc = desc })
-        end
+	group = vim.api.nvim_create_augroup("custom-lsp-attach", { clear = true }),
+	callback = function(event)
+		local map = function(keys, func, desc)
+			vim.keymap.set("n", keys, func, { buffer = event.buf, desc = desc })
+		end
 
-        -- Jump to the definition of the word under your cursor.
-        -- Note: CTRL + T returns back to original buffer
-        map("gd", require("telescope.builtin").lsp_definitions, "Go to definition")
+		-- Jump to the definition of the word under your cursor.
+		-- Note: CTRL + T returns back to original buffer
+		map("gd", require("telescope.builtin").lsp_definitions, "Go to definition")
 
-        -- For example, in C this would take you to the header.
-        map("gD", vim.lsp.buf.declaration, "Go to declaration")
+		-- For example, in C this would take you to the header.
+		map("gD", vim.lsp.buf.declaration, "Go to declaration")
 
-        -- Find references for the word under your cursor.
-        map("gr", require("telescope.builtin").lsp_references, "Go to references")
+		-- Find references for the word under your cursor.
+		map("gr", require("telescope.builtin").lsp_references, "Go to references")
 
-        -- Jump to the implementation of the word under your cursor.
-        map("gI", require("telescope.builtin").lsp_implementations, "Go to implementation")
+		-- Jump to the implementation of the word under your cursor.
+		map("gI", require("telescope.builtin").lsp_implementations, "Go to implementation")
 
-        -- Jump to the type of the word under your cursor.
-        map("gt", require("telescope.builtin").lsp_type_definitions, "Type definition")
+		-- Jump to the type of the word under your cursor.
+		map("gt", require("telescope.builtin").lsp_type_definitions, "Type definition")
 
-        -- Fuzzy find all the symbols in your current document.
-        map("<leader>cf", require("telescope.builtin").lsp_document_symbols, "Find symbols")
+		-- Fuzzy find all the symbols in your current document.
+		map("<leader>cf", require("telescope.builtin").lsp_document_symbols, "Find symbols")
 
-        -- Fuzzy find all the symbols in your current workspace.
-        map("<leader>cF", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Find symbols in workspace")
+		-- Fuzzy find all the symbols in your current workspace.
+		map("<leader>cF", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Find symbols in workspace")
 
-        -- Rename the variable under your cursor.
-        map("<leader>cr", vim.lsp.buf.rename, "Rename")
+		-- Rename the variable under your cursor.
+		map("<leader>cr", vim.lsp.buf.rename, "Rename")
 
-        -- Replace word under your cursor
-        map("<leader>cR", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Replace")
+		-- Replace word under your cursor
+		map("<leader>cR", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Replace")
 
-        -- Execute a code action, usually your cursor needs to be on top of an error
-        map("<leader>ca", vim.lsp.buf.code_action, "Code actions")
+		-- Execute a code action, usually your cursor needs to be on top of an error
+		map("<leader>ca", vim.lsp.buf.code_action, "Code actions")
 
-        -- Open line diagnostics in a floating window
-        map("<leader>cd", vim.diagnostic.open_float, "Line diagnostics")
+		-- Open line diagnostics in a floating window
+		map("<leader>cd", vim.diagnostic.open_float, "Line diagnostics")
 
-        -- The following two autocommands are used to highlight references of the
-        -- word under your cursor when your cursor rests there for a little while.
-        -- When you move your cursor, the highlights will be cleared (the second autocommand).
-        local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
-            local highlight_augroup = vim.api.nvim_create_augroup("custom-lsp-highlight", { clear = false })
-            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-                buffer = event.buf,
-                group = highlight_augroup,
-                callback = vim.lsp.buf.document_highlight,
-            })
+		-- The following two autocommands are used to highlight references of the
+		-- word under your cursor when your cursor rests there for a little while.
+		-- When you move your cursor, the highlights will be cleared (the second autocommand).
+		local client = vim.lsp.get_client_by_id(event.data.client_id)
+		if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+			local highlight_augroup = vim.api.nvim_create_augroup("custom-lsp-highlight", { clear = false })
+			vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+				buffer = event.buf,
+				group = highlight_augroup,
+				callback = vim.lsp.buf.document_highlight,
+			})
 
-            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-                buffer = event.buf,
-                group = highlight_augroup,
-                callback = vim.lsp.buf.clear_references,
-            })
+			vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+				buffer = event.buf,
+				group = highlight_augroup,
+				callback = vim.lsp.buf.clear_references,
+			})
 
-            vim.api.nvim_create_autocmd("LspDetach", {
-                group = vim.api.nvim_create_augroup("custom-lsp-detach", { clear = true }),
-                callback = function(event2)
-                    vim.lsp.buf.clear_references()
-                    vim.api.nvim_clear_autocmds({ group = "custom-lsp-highlight", buffer = event2.buf })
-                end,
-            })
-        end
+			vim.api.nvim_create_autocmd("LspDetach", {
+				group = vim.api.nvim_create_augroup("custom-lsp-detach", { clear = true }),
+				callback = function(event2)
+					vim.lsp.buf.clear_references()
+					vim.api.nvim_clear_autocmds({ group = "custom-lsp-highlight", buffer = event2.buf })
+				end,
+			})
+		end
 
-        -- Enable inlay hints
-        vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+		-- Enable inlay hints
+		vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
 
-        -- Enable automatically showing function signature
-        if not vim.tbl_contains({ "null-ls" }, client.name) then
-            require("lsp_signature").on_attach({}, event.buf)
-        end
-    end,
+		-- Enable automatically showing function signature
+		if not vim.tbl_contains({ "null-ls" }, client.name) then
+			require("lsp_signature").on_attach({}, event.buf)
+		end
+	end,
 })
