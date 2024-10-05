@@ -15,7 +15,7 @@ return {
                     "lua_ls",
                     "html",
                     "cssls",
-                    "tsserver",
+                    "ts_ls",
                     "eslint",
                     "clangd",
                 },
@@ -40,7 +40,7 @@ return {
             lspconfig.cssls.setup({
                 capabilities = capabilities,
             })
-            lspconfig.tsserver.setup({
+            lspconfig.ts_ls.setup({
                 capabilities = capabilities,
                 on_attach = function(client)
                     client.server_capabilities.documentFormattingProvider = false

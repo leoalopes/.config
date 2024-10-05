@@ -10,8 +10,10 @@ if status is-interactive
     fish_add_path /bin
     fish_add_path /sbin
     fish_add_path /home/lalopes/.toolbox/bin
+    fish_add_path /Users/lalopes/.toolbox/bin
     fish_add_path /opt/nvim/bin
     fish_add_path /home/linuxbrew/.linuxbrew/bin
+    fish_add_path /opt/homebrew/bin
 
     starship init fish | source
     fzf --fish | source
