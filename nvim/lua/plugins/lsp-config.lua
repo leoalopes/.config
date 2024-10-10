@@ -20,6 +20,11 @@ return {
                         client.server_capabilities.documentFormattingProvider = false
                     end,
                 },
+                jsonls = {
+                    on_attach = function(client)
+                        client.server_capabilities.documentFormattingProvider = false
+                    end,
+                },
                 eslint = {},
                 clangd = {
                     cmd = {
