@@ -14,6 +14,9 @@ if status is-interactive
     fish_add_path /opt/nvim/bin
     fish_add_path /home/linuxbrew/.linuxbrew/bin
     fish_add_path /opt/homebrew/bin
+    fish_add_path /usr/local/cuda/bin
+
+    fish_vi_key_bindings
 
     fish_vi_key_bindings
 

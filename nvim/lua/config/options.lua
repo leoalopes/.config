@@ -65,14 +65,25 @@ vim.opt.shiftwidth = 4
 
 -- Sync clipboard between OS and Neovim
 vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus"
+    vim.opt.clipboard = "unnamedplus"
 end)
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking text",
-	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+    desc = "Highlight when yanking text",
+    group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+})
+
+vim.filetype.add({
+    extension = {
+        vert = "glsl",
+        tesc = "glsl",
+        tese = "glsl",
+        geom = "glsl",
+        frag = "glsl",
+        comp = "glsl",
+    },
 })
