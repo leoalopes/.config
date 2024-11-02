@@ -15,6 +15,8 @@ if status is-interactive
     fish_add_path /home/linuxbrew/.linuxbrew/bin
     fish_add_path /opt/homebrew/bin
 
+    fish_vi_key_bindings
+
     starship init fish | source
     fzf --fish | source
 end
