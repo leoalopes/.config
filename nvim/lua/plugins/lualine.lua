@@ -6,7 +6,15 @@ return {
             require("lualine").setup({
                 options = {
                     theme = "dracula",
-                    disabled_filetypes = { "neo-tree" },
+                    disabled_filetypes = {
+                        "neo-tree",
+                        "dapui_scopes",
+                        "dapui_breakpoints",
+                        "dapui_stacks",
+                        "dapui_watches",
+                        "dapui_console",
+                        "dap-repl",
+                    },
                     globalstatus = true,
                 },
                 sections = {

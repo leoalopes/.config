@@ -10,11 +10,12 @@ return {
 			require("which-key").setup()
 
 			require("which-key").add({
-				{ "<leader>c", group = "Code" },
-				{ "<leader>f", group = "Find" },
 				{ "<leader>b", group = "Buffer" },
-				{ "<leader>h", group = "Harpoon" },
+				{ "<leader>c", group = "Code" },
+				{ "<leader>d", group = "Debugger" },
+				{ "<leader>f", group = "Find" },
 				{ "<leader>g", group = "Git" },
+				{ "<leader>h", group = "Harpoon" },
 			})
 		end,
 	},
