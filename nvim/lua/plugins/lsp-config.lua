@@ -3,8 +3,8 @@ return {
         "neovim/nvim-lspconfig",
         lazy = false,
         dependencies = {
-            { "williamboman/mason.nvim", config = true },
-            "williamboman/mason-lspconfig.nvim",
+            { "mason-org/mason.nvim",           config = true,     version = "1.11.0" },
+            { "mason-org/mason-lspconfig.nvim", version = "1.32.0" },
             "WhoIsSethDaniel/mason-tool-installer.nvim",
         },
         config = function()
