@@ -1,5 +1,6 @@
 if status is-interactive
     set -gx AUTO_TITLE_SCREENS NO
+    set -gx EDITOR nvim
 
     alias t="/home/linuxbrew/.linuxbrew/bin/tmux"
     alias ta="t attach"
