@@ -63,27 +63,33 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
+-- Enable treesitter powered folds
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldcolumn = "0"
+
 -- Sync clipboard between OS and Neovim
 vim.schedule(function()
-    vim.opt.clipboard = "unnamedplus"
+	vim.opt.clipboard = "unnamedplus"
 end)
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
-    desc = "Highlight when yanking text",
-    group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
-    callback = function()
-        vim.highlight.on_yank()
-    end,
+	desc = "Highlight when yanking text",
+	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
 
 vim.filetype.add({
-    extension = {
-        vert = "glsl",
-        tesc = "glsl",
-        tese = "glsl",
-        geom = "glsl",
-        frag = "glsl",
-        comp = "glsl",
-    },
+	extension = {
+		vert = "glsl",
+		tesc = "glsl",
+		tese = "glsl",
+		geom = "glsl",
+		frag = "glsl",
+		comp = "glsl",
+	},
 })

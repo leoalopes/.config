@@ -23,5 +23,7 @@ if status is-interactive
 
     starship init fish | source
     fzf --fish | source
+
+    tmux new-session -A -s main
 end
 

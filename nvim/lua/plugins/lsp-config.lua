@@ -55,7 +55,12 @@ return {
                         -- certain features of an LSP (for example, turning off formatting for ts_ls)
                         server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
                         server.capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
-                        require("lspconfig")[server_name].setup(server)
+                        if not server.capabilities.positionEncoding then
+                            server.capabilities.positionEncoding = "utf-16"
+                        end
+
+                        vim.lsp.config(server_name, server)
+                        vim.lsp.enable(server_name)
                     end,
                 },
             })
